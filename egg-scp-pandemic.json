@@ -22,7 +22,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n# steamcmd Base Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\n# Image to install with is 'ubuntu:18.04'\r\nsleep 10;\r\n## just in case someone removed the defaults.\r\nif [ \"${STEAM_USER}\" == \"\" ]; then\r\n    STEAM_USER=anonymous\r\n    STEAM_PASS=\"\"\r\n    STEAM_AUTH=\"\"\r\nfi\r\n\r\napk update\r\napk add libgcc wget\r\n\r\n## download and install steamcmd\r\ncd \/tmp\r\nmkdir -p \/mnt\/server\/steamcmd\r\ncd \/mnt\/server\/steamcmd\r\nwget http:\/\/media.steampowered.com\/installer\/steamcmd_linux.tar.gz\r\ntar -xzvf steamcmd_linux.tar.gz\r\n\r\nmkdir -p \/mnt\/server\/Engine\/Binaries\/ThirdParty\/SteamCMD\/Linux\r\n#tar -xzvf steamcmd_linux.tar.gz -C \/mnt\/server\/Engine\/Binaries\/ThirdParty\/SteamCMD\/Linux\r\nmkdir -p \/mnt\/server\/steamapps # Fix steamcmd disk write error when this folder is missing\r\ncd \/mnt\/server\/steamcmd\r\n\r\n# SteamCMD fails otherwise for some reason, even running as root.\r\n# This is changed at the end of the install process anyways.\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n\r\n## install game using steamcmd\r\n.\/steamcmd.sh +force_install_dir \/mnt\/server\/LinuxServer +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 884110 -beta InDev -betapassword AlwaysWantedToSeeAGhost +quit ## other flags may be needed depending on install. looking at you cs 1.6\r\n\r\nmv \/mnt\/server\/steamcmd\/linux64\/steamclient.so \/mnt\/server\/Pandemic\/Binaries\/Linux",
+            "script": "#!\/bin\/bash\r\n# steamcmd Base Installation Script\r\n#\r\n# Server Files: \/mnt\/server\r\n# Image to install with is 'ubuntu:18.04'\r\nsleep 10;\r\n## just in case someone removed the defaults.\r\nif [ \"${STEAM_USER}\" == \"\" ]; then\r\n    STEAM_USER=anonymous\r\n    STEAM_PASS=\"\"\r\n    STEAM_AUTH=\"\"\r\nfi\r\n\r\napk update\r\napk add libgcc wget\r\n\r\n## download and install steamcmd\r\ncd \/tmp\r\nmkdir -p \/mnt\/server\/steamcmd\r\ncd \/mnt\/server\/steamcmd\r\nwget http:\/\/media.steampowered.com\/installer\/steamcmd_linux.tar.gz\r\ntar -xzvf steamcmd_linux.tar.gz\r\n\r\nmkdir -p \/mnt\/server\/Engine\/Binaries\/ThirdParty\/SteamCMD\/Linux\r\n#tar -xzvf steamcmd_linux.tar.gz -C \/mnt\/server\/Engine\/Binaries\/ThirdParty\/SteamCMD\/Linux\r\nmkdir -p \/mnt\/server\/steamapps # Fix steamcmd disk write error when this folder is missing\r\ncd \/mnt\/server\/steamcmd\r\n\r\n# SteamCMD fails otherwise for some reason, even running as root.\r\n# This is changed at the end of the install process anyways.\r\nchown -R root:root \/mnt\r\nexport HOME=\/mnt\/server\r\n\r\n## install game using steamcmd\r\n.\/steamcmd.sh +force_install_dir \/mnt\/server\/LinuxServer +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_AUTH} +app_update 884110 +quit ## other flags may be needed depending on install. looking at you cs 1.6\r\n\r\nmv \/mnt\/server\/steamcmd\/linux64\/steamclient.so \/mnt\/server\/Pandemic\/Binaries\/Linux",
             "container": "ghcr.io\/pterodactyl\/installers:debian",
             "entrypoint": "bash"
         }
@@ -48,7 +48,7 @@
         },
         {
             "name": "Server Map",
-            "description": "Available maps: Area12_PersistentLevel, M_TestingMap, M_Sewer_CanalPVP,",
+            "description": "Available maps: Area12_PersistentLevel, M_HuntSweden",
             "env_variable": "MAP",
             "default_value": "Area12_PersistentLevel",
             "user_viewable": true,
